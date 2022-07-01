@@ -1,8 +1,8 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "codeit/woo-product-dimensions",
     "slug": "codeit-woo-product-dimensions-master",
-    "description": "Auto translates WordPress posts and terms",
+    "description": "WordPress WooCommerce, calculates the amount of products customer needs for given dimensions.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0",
     "autoload": {
