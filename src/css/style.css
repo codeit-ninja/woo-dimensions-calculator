@@ -1,0 +1,22 @@
+.woo-product-dimensions {
+    margin: 2rem 0;
+}
+
+.woo-product-dimensions-header {
+    margin: 0 0 .3rem;
+}
+
+.woo-product-dimensions-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.woo-product-dimensions-form label {
+    display: block;
+    margin: 0 0 .2rem;
+}
+
+.woo-product-dimensions-form input[type=text],
+.woo-product-dimensions-form input[type=number] {
+    padding: .7rem;
+}

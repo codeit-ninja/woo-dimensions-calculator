@@ -1,0 +1,23 @@
+{
+    "version": "1.0.0",
+    "name": "codeit/woo-product-dimensions",
+    "slug": "codeit-woo-product-dimensions-master",
+    "description": "Auto translates WordPress posts and terms",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0",
+    "autoload": {
+        "files": [
+            "./inc/options-class.php",
+            "./inc/updater-class.php"
+        ]
+    },
+    "author": "<a href='https://codeit.ninja'>Richard Mauritz</a>",
+    "download_url": "https://github.com/codeit-ninja/woo-dimensions-calculator/archive/refs/heads/master.zip",
+    "last_updated": "2022-06-29 16:40:00",
+    "requires": "5.8",
+    "tested": "5.9",
+    "requires_php": "7.4",
+    "sections": {
+        "changelog": "<h4>1.0 –  29 june 2022</h4><ul><li>Bug fixes.</li><li>Initital release.</li></ul>"
+    }
+}
