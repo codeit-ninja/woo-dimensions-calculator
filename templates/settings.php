@@ -4,7 +4,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 }
 ?>
 <div class="wrap">
-    <h1>Auto translator settings</h1>
+    <h1><?php echo $this->page_name; ?></h1>
     <form method="post" action="options.php">
 
         <?php settings_fields( 'woo-product-dimensions-master' ); ?>
