@@ -162,9 +162,13 @@ class Options {
             name='". $this->plugin_name . '-settings['. $args['section'] .']['. $args['id'] ."]'
             type='text'
             class='regular-text ltr'
-            placeholder='". isset($args['placeholder']) ? $args['placeholder'] : "'
-            value='{$this->options[$args['section']][$args['id']]}'
-        />";
+            value='{$this->options[$args['section']][$args['id']]}'";
+
+            if( isset( $args['placeholder'] ) ) {
+                echo "placeholder='". $args['placeholder'] . "'";
+            }
+
+        echo "/>";
 
         if( isset( $args['description'] ) ) {
             echo "<p class='description'>" . __($args['description'], 'codeit') . "</p>";

@@ -3,16 +3,16 @@ namespace codeit\WooCommerce_Dimensions_Calculator;
 
 use codeit\WP_Settings;
 /**
- *         _       _       
- *        (_)     (_)      
- *   _ __  _ _ __  _  __ _ 
+ *         _       _
+ *        (_)     (_)
+ *   _ __  _ _ __  _  __ _
  *  | '_ \| | '_ \| |/ _` |
  *  | | | | | | | | | (_| |
  *  |_| |_|_|_| |_| |\__,_|
- *               _/ |      
- *              |__/   
+ *               _/ |
+ *              |__/
  *
- * Version: 1.0.2
+ * Version: 1.0.1
  * Plugin Name: Code IT - WooCommerce product dimensions calculator
  * Plugin URI: https://codeit.ninja
  * Description: Add a product calculator to your products which can calculate the amount of products a user needs for given dimensions
@@ -21,10 +21,10 @@ use codeit\WP_Settings;
  * Update URI: https://github.com/codeit-ninja/woo-product-dimensions
  * Text Domain: codeit
  * Domain Path: /languages
- * 
+ *
  * You are not allowed to sell or distribute this plugin without
  * the permission of its author
- * 
+ *
  * You can contact the author of this plugin at richard@codeit.ninja
  *
  * @package CodeIT\WPML_Translator
@@ -35,7 +35,7 @@ class Woo_Calculator
 {
     /**
      * Plugin options
-     * 
+     *
      * @var WP_Settings\Options
      */
     protected WP_Settings\Options $options;
@@ -43,8 +43,6 @@ class Woo_Calculator
     public function __construct()
     {
         $plugin_data = get_file_data( __FILE__, array( 'Version' => 'Version' ), false );
-
-        new Updater( $plugin_data['Version'], 'https://raw.githubusercontent.com/codeit-ninja/wordpress-wpml-deepl-auto-translator/master/composer.json', plugin_basename( __DIR__ ) );
         /**
          * Register and create options page
          */
@@ -86,6 +84,13 @@ class Woo_Calculator
          * @since 1.0.0
          */
         add_filter( 'load_textdomain_mofile', array( $this, 'load_plugin_textdomain' ), 10, 2 );
+        /**
+         * Init plugin updater
+         *
+         * This makes plugin updatable through the WordPress
+         * plugins page and GitHub
+         */
+        new Updater( $plugin_data['Version'], plugin_basename( __FILE__ ), 'https://raw.githubusercontent.com/codeit-ninja/woo-dimensions-calculator/master/composer.json' );
     }
 
     /**
@@ -101,7 +106,6 @@ class Woo_Calculator
         $this->options
             ->add_section('form-settings', 'Form settings')
             ->add_field( 'heading', __('Heading title', 'codeit'), 'text', 'form-settings', 'VOER BESTELMATEN IN (INCL. MARGE)', array( 'description' => __('This is displayed above the form.', 'codeit') ))
-            ->add_field( 'measurement', __('Measuring unit', 'codeit'), 'text', 'form-settings', 'cm', array( 'description' => __('What unit we measuring in? Eg; cm, m, mm', 'codeit' ), 'placeholder' => 'mm, cm, m' ) )
             ->add_field( 'measurement-x', __('Measurement label x', 'codeit'), 'text', 'form-settings', 'Lengte', array( 'description' => __('Label above the \'x\' field', 'codeit' ), 'placeholder' => 'Length' ) )
             ->add_field( 'measurement-y', __('Measurement label y', 'codeit'), 'text', 'form-settings', 'Breedte', array( 'description' => __('Label above the \'y\' field', 'codeit' ), 'placeholder' => 'width' ) );
         $this->options->create();
@@ -179,6 +183,7 @@ class Woo_Calculator
      *
      * @param $mofile
      * @param $domain
+     *
      * @return string
      */
     public function load_plugin_textdomain( $mofile, $domain ): string

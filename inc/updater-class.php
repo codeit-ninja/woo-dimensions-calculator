@@ -16,19 +16,25 @@ namespace codeit\WooCommerce_Dimensions_Calculator;
 class Updater
 {
     /**
+     * Current version
+     *
+     * @var string
+     */
+    public string $version;
+    /**
+     * Basename of the plugin
+     *
+     * @var string
+     */
+    public string $plugin_basename;
+    /**
      * Plugin slug
      *
      * @var string
      */
     public string $plugin_slug;
     /**
-     * Plugin current version
-     *
-     * @var string
-     */
-    public string $current_version;
-    /**
-     * Plugin update url
+     * JSON containing plugin update info
      *
      * @var string
      */
@@ -46,13 +52,15 @@ class Updater
      */
     public bool $cache_allowed;
 
-    public function __construct( string $current_version, string $update_uri, string $plugin_slug )
+    public function __construct( string $version, string $basename, string $update_uri_json )
     {
-        $this->plugin_slug = $plugin_slug;
-        $this->current_version = $current_version;
-        $this->update_uri = $update_uri;
-        $this->cache_key = $this->plugin_slug . '-updater';
+        $this->version = $version;
+        $this->plugin_slug = plugin_basename( __DIR__ );
+        $this->plugin_basename = $basename;
+        $this->cache_key = 'woo-product-dimensions-master-updater';
         $this->cache_allowed = false;
+        $this->update_uri = $update_uri_json;
+
         /**
          * Hooks into the plugins api the change
          * the default behaviour of the Plugin API
@@ -102,7 +110,9 @@ class Updater
 
         }
 
-        return json_decode( wp_remote_retrieve_body( $remote ) );
+        $remote = json_decode( wp_remote_retrieve_body( $remote ) );
+
+        return $remote;
     }
 
     function plugin_info( $res, $action, $args )
@@ -162,13 +172,13 @@ class Updater
 
         if(
             $remote
-            && version_compare( $this->current_version, $remote->version, '<' )
+            && version_compare( $this->version, $remote->version, '<' )
             && version_compare( $remote->requires, get_bloginfo( 'version' ), '<=' )
             && version_compare( $remote->requires_php, PHP_VERSION, '<' )
         ) {
             $res = new \stdClass();
             $res->slug = $this->plugin_slug;
-            $res->plugin = $this->plugin_slug;
+            $res->plugin = $this->plugin_basename;
             $res->new_version = $remote->version;
             $res->tested = $remote->tested;
             $res->package = $remote->download_url;
