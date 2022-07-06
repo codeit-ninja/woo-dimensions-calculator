@@ -134,8 +134,8 @@ class Woo_Calculator
      */
     public function load_scripts(): void
     {
-        wp_enqueue_style( 'woo-product-dimensions-styles', plugins_url() . '/woo-product-dimensions-master/src/css/style.css' );
-        wp_enqueue_script( 'woo-product-dimensions-scripts', plugins_url() . '/woo-product-dimensions-master/src/js/main.js' );
+        wp_enqueue_style( 'woo-product-dimensions-styles', plugin_dir_url( __FILE__ ) . 'src/css/style.css' );
+        wp_enqueue_script( 'woo-product-dimensions-scripts', plugin_dir_url( __FILE__ ) . 'src/js/main.js' );
     }
 
     /**
