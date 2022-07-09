@@ -15,17 +15,9 @@ RUN git clone https://github.com/luizbills/gitpod-wordpress $HOME/gitpod-wordpre
     . $HOME/.bashrc && \
     bash -c ". .nvm/nvm.sh && nvm install --lts"
 
-### MailHog ###
 USER root
 ARG DEBIAN_FRONTEND=noninteractive
-RUN go get github.com/mailhog/MailHog && \
-    go get github.com/mailhog/mhsendmail && \
-    cp $GOPATH/bin/MailHog /usr/local/bin/mailhog && \
-    cp $GOPATH/bin/mhsendmail /usr/local/bin/mhsendmail && \
-    ln $GOPATH/bin/mhsendmail /usr/sbin/sendmail && \
-    ln $GOPATH/bin/mhsendmail /usr/bin/mail &&\
-    ### Apache ###
-    apt-get -y install apache2 && \
+RUN apt-get -y install apache2 && \
     chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 && \
     echo "include $HOME/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf && \
     echo ". $HOME/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars && \
