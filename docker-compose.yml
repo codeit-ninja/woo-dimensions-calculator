@@ -17,9 +17,7 @@ services:
       - db
     image: wordpress:latest
     volumes:
-      - src:/var/www/html
-      - ./plugins:/var/www/html/wp-content/plugins
-      - ./uploads:/var/www/html/wp-content/uploads
+      - ./:/var/www/html/wp-content/plugins/woo-dimensions-calculator
     ports:
       - "8000:80"
     restart: always
