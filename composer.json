@@ -1,7 +1,7 @@
 {
-    "version": "1.2.5",
-    "name": "codeit/woo-product-dimensions",
-    "slug": "woo-product-dimensions-master",
+    "version": "1.2.6",
+    "name": "codeit/woo-dimensions-calculator",
+    "slug": "woo-dimensions-calculator-master",
     "description": "WordPress WooCommerce, calculates the amount of products customer needs for given dimensions.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0",
