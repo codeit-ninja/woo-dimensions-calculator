@@ -152,6 +152,10 @@ class Options {
             $this->fields[$id]['callback'] = array( $this, 'render_checkbox' );
         }
 
+        if( 'dropdown' === $type ) {
+            $this->fields[$id]['callback'] = array( $this, 'render_dropdown' );
+        }
+
         return $this;
     }
 
@@ -198,10 +202,35 @@ class Options {
 
         echo '/>';
         echo '<label for="' . $this->plugin_name ."_". $args['id'] . '">'. esc_html__($label_text, 'codeit') .'</label>';
+
+        if( isset( $args['description'] ) ) {
+            echo "<p class='description'>" . __($args['description'], 'codeit') . "</p>";
+        }
     }
 
-    public function get_options( string $section ) 
+    function render_dropdown( array $args ): void
     {
+        ?>
+        <label>
+            <select name="<?php echo $this->plugin_name . '-settings['. $args['section'] .']['. $args['id'] .']'; ?>">
+                <?php foreach ( $args['values'] as $value => $name ) : ?>
+                    <option value="<?php echo $value ?>" <?php echo selected($this->get_option($args['id'], 'form-settings'), $value) ?>><?php echo $name ?></option>
+                <?php endforeach; ?>
+            </select>
+        </label>
+        <?php
+
+        if( isset( $args['description'] ) ) {
+            echo "<p class='description'>" . __($args['description'], 'codeit') . "</p>";
+        }
+    }
+
+    public function get_options( string $section = null )
+    {
+        if ( ! $section ) {
+            return $this->options;
+        }
+
         return $this->options[$section];
     }
 

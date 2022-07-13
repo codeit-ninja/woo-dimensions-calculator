@@ -12,7 +12,7 @@ use codeit\WP_Settings;
  *               _/ |
  *              |__/
  *
- * Version: 1.1.4
+ * Version: 1.2.4
  * Plugin Name: Code IT - WooCommerce product dimensions calculator
  * Plugin URI: https://codeit.ninja
  * Description: Add a product calculator to your products which can calculate the amount of products a user needs for given dimensions
@@ -53,6 +53,12 @@ class Woo_Calculator
          * @since 1.0.0
          */
         add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
+        /**
+         * Loads plugin admin area script file
+         *
+         * @since 1.0.0
+         */
+        add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_scripts' ) );
         /**
          * Add custom meta fields to product general options
          *
@@ -105,9 +111,54 @@ class Woo_Calculator
         $this->options = new WP_Settings\Options( 'Woo calculator', plugin_basename( __DIR__ ), plugin_basename( __DIR__ ), plugin_dir_path( __FILE__ ) );
         $this->options
             ->add_section('form-settings', 'Form settings')
-            ->add_field( 'heading', __('Heading title', 'codeit'), 'text', 'form-settings', 'VOER BESTELMATEN IN (INCL. MARGE)', array( 'description' => __('This is displayed above the form.', 'codeit') ))
-            ->add_field( 'measurement-x', __('Measurement label x', 'codeit'), 'text', 'form-settings', 'Lengte', array( 'description' => __('Label above the \'x\' field', 'codeit' ), 'placeholder' => 'Length' ) )
-            ->add_field( 'measurement-y', __('Measurement label y', 'codeit'), 'text', 'form-settings', 'Breedte', array( 'description' => __('Label above the \'y\' field', 'codeit' ), 'placeholder' => 'width' ) );
+            ->add_field(
+                'heading',
+                __('Heading title', 'codeit'),
+                'text',
+                'form-settings',
+                'VOER BESTELMATEN IN (INCL. MARGE)',
+                array( 'description' => __('This is displayed above the form.', 'codeit') ))
+            ->add_field(
+                'measurement-unit',
+                __('Area unit of measurement', 'codeit'),
+                'dropdown',
+                'form-settings',
+                'ft2',
+                array('values' => [
+                    'm2' => __('m2 (Square m)', 'codeit'),
+                    'cm2' => __('cm2 (Square cm)', 'codeit'),
+                    'mm2' => __('mm2 (Square mm)', 'codeit'),
+                ])
+            )
+            ->add_field(
+                'measurement-unit-input',
+                __('Input measurement', 'codeit'),
+                'dropdown',
+                'form-settings',
+                'cm',
+                array(
+                    'values' => [
+                        'm' => __('Meter', 'codeit'),
+                        'cm' => __('Centimeter', 'codeit'),
+                        'mm' => __('Millimeter', 'codeit'),
+                        'µm' => __('Micron', 'codeit'),
+                    ],
+                    'description' => __('The unit of measurement customers need to fill into the form.', 'codeit')
+                )
+            )
+            ->add_field(
+                'measurement-x',
+                __('Measurement label x', 'codeit'),
+                'text', 'form-settings',
+                'Lengte',
+                array( 'description' => __('Label above the \'x\' field', 'codeit' ), 'placeholder' => 'Length' ) )
+            ->add_field(
+                'measurement-y',
+                __('Measurement label y', 'codeit'),
+                'text',
+                'form-settings',
+                'Breedte',
+                array( 'description' => __('Label above the \'y\' field', 'codeit' ), 'placeholder' => 'width' ) );
         $this->options->create();
     }
 
@@ -116,7 +167,7 @@ class Woo_Calculator
      *
      * @return void
      */
-    public function insert_dimensions_template()
+    public function insert_dimensions_template(): void
     {
         global $post;
 
@@ -134,8 +185,30 @@ class Woo_Calculator
      */
     public function load_scripts(): void
     {
-        wp_enqueue_style( 'woo-product-dimensions-styles', plugin_dir_url( __FILE__ ) . 'src/css/style.css' );
-        wp_enqueue_script( 'woo-product-dimensions-scripts', plugin_dir_url( __FILE__ ) . 'src/js/main.js' );
+        global $product;
+
+        wp_enqueue_style( 'woo-product-dimensions-styles', plugins_url( '/src/css/style.css', __FILE__,  ) );
+        wp_enqueue_script( 'woo-product-dimensions-scripts', plugins_url( '/src/js/main.js', __FILE__ ) );
+
+        wp_add_inline_script(
+            'woo-product-dimensions-scripts',
+            '
+                const ci_wc_settings = ' . json_encode( $this->options->get_options() ) . '
+                const ci_wc_product = ' . json_encode( wc_get_product()->get_data() )
+        );
+    }
+
+    /**
+     * Load plugin admin scripts
+     *
+     * @param string $hook_suffix
+     * @return void
+     */
+    public function load_admin_scripts( string $hook_suffix ): void
+    {
+        if( 'post.php' == $hook_suffix || 'post-new.php' == $hook_suffix ) {
+            wp_enqueue_script( 'woo-product-dimensions-admin-script', plugins_url( '/src/js/admin.js', __FILE__ ) );
+        }
     }
 
     /**
@@ -151,6 +224,14 @@ class Woo_Calculator
             'id'    => '_woo_calculator_show_form',
             'label' => __('Show dimensions form?', 'codeit')
         ) );
+
+        woocommerce_wp_text_input( array(
+            'id'    => '_woo_calculator_square_meter_total',
+            'label' => sprintf(__('How much %s per product?', 'codeit'), $this->options->get_option('measurement-unit', 'form-settings')),
+            'desc_tip' => true,
+            'description' => __('You can calculate this by multiplying the length times the width. (L x W)', 'codeit'),
+            'type'  => 'number'
+        ) );
     }
 
     /**
@@ -162,9 +243,14 @@ class Woo_Calculator
     public function save_general_options_fields( int $post_id ): void
     {
         $show_form_dimensions_field = $_POST['_woo_calculator_show_form'];
+        $show_form_quantity_total_field = $_POST['_woo_calculator_square_meter_total'];
 
         if( $show_form_dimensions_field ) {
             update_post_meta( $post_id, '_woo_calculator_show_form', esc_attr( $show_form_dimensions_field ) );
+        }
+
+        if( $show_form_quantity_total_field ) {
+            update_post_meta( $post_id, '_woo_calculator_square_meter_total', esc_attr( $show_form_quantity_total_field ) );
         }
     }
 
@@ -173,7 +259,7 @@ class Woo_Calculator
      *
      * @return void
      */
-    public function load_text_domain()
+    public function load_text_domain(): void
     {
         load_plugin_textdomain( 'codeit', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
     }
@@ -188,9 +274,9 @@ class Woo_Calculator
      */
     public function load_plugin_textdomain( $mofile, $domain ): string
     {
-        if ( 'codeit' === $domain && false !== strpos( $mofile, WP_LANG_DIR . '/plugins/' ) ) {
+        if ( 'codeit' === $domain && str_contains($mofile, WP_LANG_DIR . '/plugins/')) {
             $locale = apply_filters( 'plugin_locale', determine_locale(), $domain );
-            $mofile = WP_PLUGIN_DIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/languages/' . $locale . '.mo';
+            $mofile = WP_PLUGIN_DIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/languages/'. $domain .'-'. $locale .'.mo';
         }
 
         return $mofile;
