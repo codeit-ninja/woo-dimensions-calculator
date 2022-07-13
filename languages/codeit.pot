@@ -1,0 +1,113 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Code IT - WooCommerce product dimensions calculator\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-13 14:09+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0.1\n"
+"X-Domain: codeit"
+
+#. Description of the plugin
+msgid ""
+"Add a product calculator to your products which can calculate the amount of "
+"products a user needs for given dimensions"
+msgstr ""
+
+#: woo-calculator.php:123
+msgid "Area unit of measurement"
+msgstr ""
+
+#: woo-calculator.php:142
+msgid "Centimeter"
+msgstr ""
+
+#: woo-calculator.php:129
+msgid "cm2 (Square cm)"
+msgstr ""
+
+#. Name of the plugin
+msgid "Code IT - WooCommerce product dimensions calculator"
+msgstr ""
+
+#. Author of the plugin
+msgid "Code IT Ninja"
+msgstr ""
+
+#: woo-calculator.php:116
+msgid "Heading title"
+msgstr ""
+
+#: woo-calculator.php:230
+#, php-format
+msgid "How much %s per product?"
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://codeit.ninja"
+msgstr ""
+
+#: woo-calculator.php:135
+msgid "Input measurement"
+msgstr ""
+
+#: woo-calculator.php:154
+msgid "Label above the 'x' field"
+msgstr ""
+
+#: woo-calculator.php:161
+msgid "Label above the 'y' field"
+msgstr ""
+
+#: woo-calculator.php:128
+msgid "m2 (Square m)"
+msgstr ""
+
+#: woo-calculator.php:151
+msgid "Measurement label x"
+msgstr ""
+
+#: woo-calculator.php:157
+msgid "Measurement label y"
+msgstr ""
+
+#: woo-calculator.php:141
+msgid "Meter"
+msgstr ""
+
+#: woo-calculator.php:144
+msgid "Micron"
+msgstr ""
+
+#: woo-calculator.php:143
+msgid "Millimeter"
+msgstr ""
+
+#: woo-calculator.php:130
+msgid "mm2 (Square mm)"
+msgstr ""
+
+#: woo-calculator.php:225
+msgid "Show dimensions form?"
+msgstr ""
+
+#: woo-calculator.php:120
+msgid "This is displayed above the form."
+msgstr ""
+
+#: woo-calculator.php:146
+msgid "The unit of measurement customers need to fill into the form."
+msgstr ""
+
+#: woo-calculator.php:232
+msgid "You can calculate this by multiplying the length times the width. (L x W)"
+msgstr ""

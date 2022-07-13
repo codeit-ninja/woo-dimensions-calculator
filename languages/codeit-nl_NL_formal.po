@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Code IT - WooCommerce product dimensions calculator\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-13 14:09+0000\n"
+"PO-Revision-Date: 2022-07-13 14:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: Nederlands (Formeel)\n"
+"Language: nl_NL_formal\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0.1\n"
+"X-Domain: codeit"
+
+#. Description of the plugin
+msgid ""
+"Add a product calculator to your products which can calculate the amount of "
+"products a user needs for given dimensions"
+msgstr ""
+"Voeg een productcalculator toe aan uw producten die kan berekenen hoeveel "
+"producten een gebruiker nodig heeft voor bepaalde afmetingen. "
+
+#: woo-calculator.php:123
+msgid "Area unit of measurement"
+msgstr "Oppervlakte meeteenheid"
+
+#: woo-calculator.php:142
+msgid "Centimeter"
+msgstr "Centimeter"
+
+#: woo-calculator.php:129
+msgid "cm2 (Square cm)"
+msgstr "cm2 (Vierkante cm)"
+
+#. Name of the plugin
+msgid "Code IT - WooCommerce product dimensions calculator"
+msgstr "Code IT - WooCommerce product afmetingen calculator"
+
+#. Author of the plugin
+msgid "Code IT Ninja"
+msgstr "Code IT Ninja"
+
+#: woo-calculator.php:116
+msgid "Heading title"
+msgstr "Header title"
+
+#: woo-calculator.php:230
+#, php-format
+msgid "How much %s per product?"
+msgstr "Hoeveel %s per product?"
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://codeit.ninja"
+msgstr "https://codeit.ninja"
+
+#: woo-calculator.php:135
+msgid "Input measurement"
+msgstr "Input meting"
+
+#: woo-calculator.php:154
+msgid "Label above the 'x' field"
+msgstr "Label boven het \"x\" veld"
+
+#: woo-calculator.php:161
+msgid "Label above the 'y' field"
+msgstr "Label boven het \"y\" veld"
+
+#: woo-calculator.php:128
+msgid "m2 (Square m)"
+msgstr "m2 (Vierkante m)"
+
+#: woo-calculator.php:151
+msgid "Measurement label x"
+msgstr "Meet label x"
+
+#: woo-calculator.php:157
+msgid "Measurement label y"
+msgstr "Meet label y"
+
+#: woo-calculator.php:141
+msgid "Meter"
+msgstr "Meter"
+
+#: woo-calculator.php:144
+msgid "Micron"
+msgstr "Micrometer"
+
+#: woo-calculator.php:143
+msgid "Millimeter"
+msgstr "Millimeter"
+
+#: woo-calculator.php:130
+msgid "mm2 (Square mm)"
+msgstr "mm2 (Vierkante mm)"
+
+#: woo-calculator.php:225
+msgid "Show dimensions form?"
+msgstr "Calculator tonen?"
+
+#: woo-calculator.php:120
+msgid "This is displayed above the form."
+msgstr "Dit wordt boven het formulier weergegeven."
+
+#: woo-calculator.php:146
+msgid "The unit of measurement customers need to fill into the form."
+msgstr "De meeteenheid die de klant in het formulier moet invullen."
+
+#: woo-calculator.php:232
+msgid ""
+"You can calculate this by multiplying the length times the width. (L x W)"
+msgstr ""
+"U kunt dit berekenen door de lengte te vermenigvuldigen met de breedte. (L x "
+"B)"
