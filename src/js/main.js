@@ -59,6 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         previewContainer.append(previewPrice, previewText);
     }
 
-    form.addEventListener('change', updateQuantity)
-    form.addEventListener('keyup', updateQuantity)
+    form.addEventListener('change', updateQuantity);
+    form.addEventListener('keyup', updateQuantity);
 })

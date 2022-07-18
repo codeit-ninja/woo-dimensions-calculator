@@ -123,7 +123,7 @@ class Woo_Calculator
                 __('Area unit of measurement', 'codeit'),
                 'dropdown',
                 'form-settings',
-                'ft2',
+                'm2',
                 array('values' => [
                     'm2' => __('m2 (Square m)', 'codeit'),
                     'cm2' => __('cm2 (Square cm)', 'codeit'),
@@ -185,10 +185,10 @@ class Woo_Calculator
      */
     public function load_scripts(): void
     {
-        global $product;
-
         wp_enqueue_style( 'woo-product-dimensions-styles', plugins_url( '/src/css/style.css', __FILE__,  ) );
         wp_enqueue_script( 'woo-product-dimensions-scripts', plugins_url( '/src/js/main.js', __FILE__ ) );
+
+        if( ! wc_get_product() ) return;
 
         wp_add_inline_script(
             'woo-product-dimensions-scripts',
@@ -245,13 +245,8 @@ class Woo_Calculator
         $show_form_dimensions_field = $_POST['_woo_calculator_show_form'];
         $show_form_quantity_total_field = $_POST['_woo_calculator_square_meter_total'];
 
-        if( $show_form_dimensions_field ) {
-            update_post_meta( $post_id, '_woo_calculator_show_form', esc_attr( $show_form_dimensions_field ) );
-        }
-
-        if( $show_form_quantity_total_field ) {
-            update_post_meta( $post_id, '_woo_calculator_square_meter_total', esc_attr( $show_form_quantity_total_field ) );
-        }
+        update_post_meta( $post_id, '_woo_calculator_show_form', esc_attr( $show_form_dimensions_field ) );
+        update_post_meta( $post_id, '_woo_calculator_square_meter_total', esc_attr( $show_form_quantity_total_field ) );
     }
 
     /**
