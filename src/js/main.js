@@ -59,6 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         previewContainer.append(previewPrice, previewText);
     }
 
-    form.addEventListener('change', updateQuantity);
-    form.addEventListener('keyup', updateQuantity);
+    // Should fix issue on Apple devices
+    [].forEach.call(form.querySelectorAll('input'), field => field.addEventListener('keyup', updateQuantity));
 })
