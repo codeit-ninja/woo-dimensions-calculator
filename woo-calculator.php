@@ -12,7 +12,7 @@ use codeit\WP_Settings;
  *               _/ |
  *              |__/
  *
- * Version: 1.3.7
+ * Version: 1.3.8
  * Plugin Name: Code IT - WooCommerce product dimensions calculator
  * Plugin URI: https://codeit.ninja
  * Description: Add a product calculator to your products which can calculate the amount of products a user needs for given dimensions
@@ -277,5 +277,13 @@ class Woo_Calculator
         return $mofile;
     }
 }
+
+register_activation_hook( __FILE__, function () {
+    delete_option(plugin_basename( __DIR__ ) . '-settings');
+} );
+
+register_deactivation_hook( __FILE__, function () {
+    delete_option(plugin_basename( __DIR__ ) . '-settings');
+} );
 
 new Woo_Calculator();
