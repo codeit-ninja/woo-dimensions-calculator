@@ -5,7 +5,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 ?>
 <div class="wrap">
     <h1><?php echo $this->page_name; ?></h1>
-    <form method="post" action="options.php">
+    <form method="post" action="">
 
         <?php settings_fields( 'woo-product-dimensions-master' ); ?>
         <?php do_settings_sections( 'codeit-plugins-settings' ); ?>
